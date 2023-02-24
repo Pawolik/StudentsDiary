@@ -16,11 +16,6 @@ namespace StudentsDiary
             InitializeComponent();
             RefreshDiary();
             SetColumnsHeader();
-
-            var list = new List<int> { 2, 432, 22, 5, 85};
-            var list2 = (from x in list
-                        where x > 10
-                        select x).ToList();
         }
 
         private void RefreshDiary()
