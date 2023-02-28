@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentsDiary
@@ -17,8 +19,8 @@ namespace StudentsDiary
         public AddEditStudent(int id = 0)
         {
             InitializeComponent();
-            _studentId= id;
-            
+            _studentId = id;
+
             GetStudentData();
             tbName.Select();
         }
@@ -30,7 +32,7 @@ namespace StudentsDiary
                 Text = "Edytowanie danych ucznia";
 
                 var students = _fileHelper.DeserializeFromFile();
-               _student = students.FirstOrDefault(x => x.ID == _studentId);
+                _student = students.FirstOrDefault(x => x.ID == _studentId);
 
                 if (_student == null)
                 {
@@ -51,6 +53,7 @@ namespace StudentsDiary
             tbTech.Text = _student.Technology.ToString();
             tbForeign.Text = _student.Foreign.ToString();
             rtbComments.Text = _student.Description.ToString();
+            cBoxActivities.Text = _student.Activities.ToString();
         }
 
 
@@ -60,7 +63,7 @@ namespace StudentsDiary
 
             if (_studentId != 0)
             {
-                students.RemoveAll (x => x.ID == _studentId);
+                students.RemoveAll(x => x.ID == _studentId);
             }
             else
                 AssignIdToNewStudent(students);
@@ -84,7 +87,8 @@ namespace StudentsDiary
                 Foreign = tbForeign.Text,
                 Math = tbMath.Text,
                 Physics = tbPhysics.Text,
-                Technology = tbTech.Text
+                Technology = tbTech.Text,
+                Activities = cBoxActivities.Checked
             };
             students.Add(student);
         }
@@ -99,6 +103,11 @@ namespace StudentsDiary
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void cBoxActivities_CheckedChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

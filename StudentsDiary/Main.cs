@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
+using StudentsDiary.Properties;
 
 namespace StudentsDiary
 {
@@ -10,12 +11,27 @@ namespace StudentsDiary
     {
         private FileHelper<List<Student>> _fileHelper = new FileHelper<List<Student>>(Program.FilePath);
 
+        public bool IsMaximize
+        {
+            get
+            {
+                return Settings.Default.IsMaximize;
+            }
+            set
+            {
+                Settings.Default.IsMaximize = value;
+            }
+        }
+
 
         public Main()
         {
             InitializeComponent();
             RefreshDiary();
             SetColumnsHeader();
+
+            if (IsMaximize)
+                WindowState = FormWindowState.Maximized;
         }
 
         private void RefreshDiary()
@@ -26,23 +42,28 @@ namespace StudentsDiary
 
         private void SetColumnsHeader()
         {
-                dgvDiary.Columns[0].HeaderText = "Numer";
-                dgvDiary.Columns[1].HeaderText = "Imie";
-                dgvDiary.Columns[2].HeaderText = "Nazwisko";
-                dgvDiary.Columns[3].HeaderText = "Uwagi";
-                dgvDiary.Columns[4].HeaderText = "Matematyka";
-                dgvDiary.Columns[5].HeaderText = "Technologia";
-                dgvDiary.Columns[6].HeaderText = "Fizyka";
-                dgvDiary.Columns[7].HeaderText = "Język polski";
-                dgvDiary.Columns[8].HeaderText = "Język obcy";
+            dgvDiary.Columns[0].HeaderText = "Numer";
+            dgvDiary.Columns[1].HeaderText = "Imie";
+            dgvDiary.Columns[2].HeaderText = "Nazwisko";
+            dgvDiary.Columns[3].HeaderText = "Uwagi";
+            dgvDiary.Columns[4].HeaderText = "Matematyka";
+            dgvDiary.Columns[5].HeaderText = "Technologia";
+            dgvDiary.Columns[6].HeaderText = "Fizyka";
+            dgvDiary.Columns[7].HeaderText = "Język polski";
+            dgvDiary.Columns[8].HeaderText = "Język obcy";
+            dgvDiary.Columns[9].HeaderText = "Zajęcia dodatkowe";
         }
-
-       
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var addEdditStudent = new AddEditStudent();
+            addEdditStudent.FormClosing += AddEdditStudent_FormClosing;
             addEdditStudent.ShowDialog();
+        }
+
+        private void AddEdditStudent_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RefreshDiary();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -53,6 +74,7 @@ namespace StudentsDiary
                 return;
             }
             var addEdditStudent = new AddEditStudent(Convert.ToInt32(dgvDiary.SelectedRows[0].Cells[0].Value));
+            addEdditStudent.FormClosing += AddEdditStudent_FormClosing;
             addEdditStudent.ShowDialog();
         }
 
@@ -85,12 +107,18 @@ namespace StudentsDiary
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            
             RefreshDiary();
         }
 
-        private void dgvDiary_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (WindowState == FormWindowState.Maximized)
+                IsMaximize = true;
+            else
+                IsMaximize= false;
 
+            Settings.Default.Save();
         }
     }
 }
