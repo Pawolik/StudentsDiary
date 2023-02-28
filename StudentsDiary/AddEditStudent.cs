@@ -13,6 +13,7 @@ namespace StudentsDiary
     {
         private int _studentId;
         private Student _student;
+        private List<Group> _groups;
 
         private FileHelper<List<Student>> _fileHelper = new FileHelper<List<Student>>(Program.FilePath);
 
@@ -21,8 +22,19 @@ namespace StudentsDiary
             InitializeComponent();
             _studentId = id;
 
+            _groups = GropupsHelper.GetGroups("brak");
+
+
+            InitGroupCombobox();
             GetStudentData();
             tbName.Select();
+        }
+
+        private void InitGroupCombobox()
+        {
+            cmbGroup.DataSource = _groups;
+            cmbGroup.DisplayMember= "Name";
+            cmbGroup.ValueMember = "Id";
         }
 
         private void GetStudentData()
@@ -53,7 +65,8 @@ namespace StudentsDiary
             tbTech.Text = _student.Technology.ToString();
             tbForeign.Text = _student.Foreign.ToString();
             rtbComments.Text = _student.Description.ToString();
-            cBoxActivities.Text = _student.Activities.ToString();
+            cBoxActivities.Checked = _student.Activities;
+            cmbGroup.SelectedItem = _groups.FirstOrDefault(x => x.Id== _student.Group);
         }
 
 
@@ -88,7 +101,9 @@ namespace StudentsDiary
                 Math = tbMath.Text,
                 Physics = tbPhysics.Text,
                 Technology = tbTech.Text,
-                Activities = cBoxActivities.Checked
+                Activities = cBoxActivities.Checked,
+                Group = (cmbGroup.SelectedItem as Group).Id
+
             };
             students.Add(student);
         }
@@ -108,6 +123,11 @@ namespace StudentsDiary
         private void cBoxActivities_CheckedChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void cBoxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

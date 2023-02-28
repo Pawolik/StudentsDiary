@@ -50,7 +50,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.lbActivities = new System.Windows.Forms.Label();
             this.cBoxActivities = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbGroup = new System.Windows.Forms.ComboBox();
             this.lbGroup = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -239,13 +239,14 @@
             this.cBoxActivities.UseVisualStyleBackColor = true;
             this.cBoxActivities.CheckedChanged += new System.EventHandler(this.cBoxActivities_CheckedChanged);
             // 
-            // comboBox1
+            // cmbGroup
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(112, 237);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 22;
+            this.cmbGroup.FormattingEnabled = true;
+            this.cmbGroup.Location = new System.Drawing.Point(112, 237);
+            this.cmbGroup.Name = "cmbGroup";
+            this.cmbGroup.Size = new System.Drawing.Size(296, 21);
+            this.cmbGroup.TabIndex = 22;
+            this.cmbGroup.SelectedIndexChanged += new System.EventHandler(this.cBoxGroup_SelectedIndexChanged);
             // 
             // lbGroup
             // 
@@ -262,7 +263,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 430);
             this.Controls.Add(this.lbGroup);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbGroup);
             this.Controls.Add(this.cBoxActivities);
             this.Controls.Add(this.lbActivities);
             this.Controls.Add(this.btnCancel);
@@ -319,7 +320,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lbActivities;
         private System.Windows.Forms.CheckBox cBoxActivities;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbGroup;
         private System.Windows.Forms.Label lbGroup;
     }
 }

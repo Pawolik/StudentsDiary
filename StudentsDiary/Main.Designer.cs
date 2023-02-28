@@ -33,7 +33,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dgvDiary = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbGroups = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiary)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,13 +96,13 @@
             this.dgvDiary.Size = new System.Drawing.Size(849, 518);
             this.dgvDiary.TabIndex = 4;
             // 
-            // comboBox1
+            // cmbGroups
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(341, 14);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 5;
+            this.cmbGroups.FormattingEnabled = true;
+            this.cmbGroups.Location = new System.Drawing.Point(341, 14);
+            this.cmbGroups.Name = "cmbGroups";
+            this.cmbGroups.Size = new System.Drawing.Size(121, 21);
+            this.cmbGroups.TabIndex = 5;
             // 
             // Main
             // 
@@ -110,7 +110,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(873, 572);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbGroups);
             this.Controls.Add(this.dgvDiary);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDelete);
@@ -132,7 +132,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dgvDiary;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbGroups;
     }
 }
 

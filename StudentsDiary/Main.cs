@@ -4,12 +4,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Linq;
 using StudentsDiary.Properties;
+using System.Security.Cryptography.X509Certificates;
 
 namespace StudentsDiary
 {
     public partial class Main : Form
     {
         private FileHelper<List<Student>> _fileHelper = new FileHelper<List<Student>>(Program.FilePath);
+        private List<Group> _groups;
 
         public bool IsMaximize
         {
@@ -27,16 +29,42 @@ namespace StudentsDiary
         public Main()
         {
             InitializeComponent();
+
+            _groups = GropupsHelper.GetGroups("Wszyscy");
+
+            InitGroupCombobox();
             RefreshDiary();
+
+
             SetColumnsHeader();
+            HideColumns();
 
             if (IsMaximize)
                 WindowState = FormWindowState.Maximized;
+        }
+        private void InitGroupCombobox()
+        {
+            cmbGroups.DataSource = _groups;
+            cmbGroups.DisplayMember = "Name";
+            cmbGroups.ValueMember = "Id";
+        }
+
+        private void HideColumns()
+        {
+            dgvDiary.Columns[nameof(Student.Group)].Visible= false;
         }
 
         private void RefreshDiary()
         {
             var students = _fileHelper.DeserializeFromFile();
+
+            var selectedGroup = (cmbGroups.SelectedItem as Group).Id;
+
+            if (selectedGroup != 0)
+            {
+                students = students.Where(x => x.Group == selectedGroup).ToList();
+            }
+
             dgvDiary.DataSource = students;
         }
 
